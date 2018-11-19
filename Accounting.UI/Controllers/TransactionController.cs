@@ -56,6 +56,22 @@ namespace Accounting.UI.Controllers
             var accountIds = ledgerRepository.GetLedgerAccountsForHead(ledgerHeadId, false).Select(x => x.LedgerAccountId).ToArray();
             return View("ListLedgerAccount", PopulateTransactionDetailsForAccounts("Head", ledgerHead.LedgerHeadName, accountIds, 0, false));
         }
+
+        public ViewResult ViewTransactionReport(int transactionId)
+        {
+            var tranIds = new List<int> { transactionId };
+            var summary  = transactionRepository.GetTransactionSummaryForTransactionIds(tranIds);
+            var detail = transactionRepository.GetTransactionAccountDetailForTransactionIds(tranIds);
+            return View(new ViewTransactionDetailViewModel
+            {
+                TransactionDate = summary[0].TransactionDate,
+                TransactionNarration = summary[0].TransactionNarration,
+                TransactionSummaryId = summary[0].TransactionSummaryId,
+                CreditDetails = detail.Where(a => a.TransactionSide == TransactionSide.Credit).Select(a => new ViewTransactionDetailViewModel.TransactionLedgerAccount { AccountId = a.LedgerAccountId, AccountName = a.LedgerAccountId.LedgerAccount().LedgerAccountName, Amount = a.Amount }).ToList(),
+                DebitDetails = detail.Where(a => a.TransactionSide == TransactionSide.Debit).Select(a => new ViewTransactionDetailViewModel.TransactionLedgerAccount { AccountId = a.LedgerAccountId, AccountName = a.LedgerAccountId.LedgerAccount().LedgerAccountName, Amount = a.Amount }).ToList()
+            });
+        }
+
         private void SetMetaDataForForm()
         {
             ViewBag.LedgerAccounts = CacheRepository.LedgerAccounts.OrderBy(x => x.LedgerAccountName).ToList();

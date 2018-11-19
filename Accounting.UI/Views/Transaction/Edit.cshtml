@@ -14,7 +14,7 @@
             @Html.HiddenFor(m => m.TransactionSummaryId)
             <div class="form-group">
                 <label>Transaction Date(yyyy-mm-dd):</label>
-                @Html.TextBox("TransactionDate", null, new { @class = "form-control" })
+                @Html.TextBox("TransactionDate", null, new { @class = "form-control", type="date" })
                 @Html.ValidationMessage("TransactionDate")
             </div>
             <table class="table table-striped table-condensed table-bordered">

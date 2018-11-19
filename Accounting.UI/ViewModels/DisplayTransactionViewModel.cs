@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Accounting.UI.ViewModels
 {
-    public class DisplayTransactionViewModel:CreateTransactionViewModel
+    public class DisplayTransactionViewModel : CreateTransactionViewModel
     {
         public double CreditAmount { get; set; }
         public double DebitAmount { get; set; }

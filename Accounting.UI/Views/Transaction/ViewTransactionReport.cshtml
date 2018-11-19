@@ -1,0 +1,49 @@
+﻿@model ViewTransactionDetailViewModel
+
+@{
+    ViewBag.Title = "Transaction Detail";
+    int loopCount = Math.Max(Model.CreditDetails.Count, Model.DebitDetails.Count);
+}
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <h3>Transaction Detail</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-condensed">
+            <tr>
+                <th class="text-right" colspan="5">@Model.TransactionDate.ToDisplayDate()</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="text-right">Credits</th>
+                <th></th>
+                <th colspan="2" class="text-right">Debits</th>
+            </tr>
+            @for (var i = 0; i < loopCount; i++)
+            {
+            <tr>
+                <td>@(i < Model.CreditDetails.Count ? Html.ActionLink(Model.CreditDetails[i].AccountName, "ListLedgerAccount", "Transaction", new { ledgerAccountId = Model.CreditDetails[i].AccountId }, null) : null)</td>
+                <td class="text-right">@(i < Model.CreditDetails.Count ? Model.CreditDetails[i].Amount.ToString("C") : "")</td>
+                <td></td>
+                <td>@(i < Model.DebitDetails.Count ? Html.ActionLink(Model.DebitDetails[i].AccountName, "ListLedgerAccount", "Transaction", new { ledgerAccountId = Model.DebitDetails[i].AccountId }, null) : null)</td>
+                <td class="text-right">@(i < Model.DebitDetails.Count ? Model.DebitDetails[i].Amount.ToString("C") : "")</td>
+            </tr>
+            }
+            <tr>
+                <th>Total Credits</th>
+                <th class="text-right">@Model.CreditDetails.Sum(x => x.Amount).ToString("C")</th>
+                <th></th>
+                <th>Total Debits</th>
+                <th class="text-right">@Model.DebitDetails.Sum(x => x.Amount).ToString("C")</th>
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <th colspan="5">Narration</th>
+            </tr>
+            <tr>
+                <td colspan="5">@Model.TransactionNarration</td>
+            </tr>
+        </table>
+    </div>
+</div>

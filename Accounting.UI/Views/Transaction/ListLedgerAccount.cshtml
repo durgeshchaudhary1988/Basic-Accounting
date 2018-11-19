@@ -22,7 +22,7 @@
                 <th class="text-right">Credit</th>
                 <th class="text-right">Debit</th>
             </tr>
-            <tr class="@(ViewBag.OpeningBalance>=0?"success":"danger")">
+            <tr class="@(ViewBag.OpeningBalance<=0?"success":"danger")">
                 <td></td>
                 <td colspan="3">Opening Balance</td>
                 <td class="text-right">@(Model.Count(x => x.CreditAmount > 0))</td>
@@ -32,7 +32,10 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-center">@item.TransactionDate.ToDisplayDate()</td>
+                    <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-center">
+                        @item.TransactionDate.ToDisplayDate()
+                        @Html.ActionLink(" ", "ViewTransactionReport", "Transaction", new { transactionId = item.TransactionSummaryId }, new {@class = "glyphicon glyphicon-link" })
+                    </td>
                     <td colspan="3">@item.TransactionNarration</td>
                     <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-right">@(item.CreditAmount > 0 ? item.CreditAmount.ToString("C") : "")</td>
                     <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-right">@(item.DebitAmount > 0 ? item.DebitAmount.ToString("C") : "")</td>
@@ -50,7 +53,7 @@
                     </tr>
                 }
             }
-            <tr class="@(ViewBag.ClosingBalance>=0?"success":"danger")">
+            <tr class="@(ViewBag.ClosingBalance<=0?"success":"danger")">
                 <td></td>
                 <td colspan="3">Closing Balance</td>
                 <td class="text-right">@(Model.Sum(x => x.CreditAmount).ToString("C"))</td>
