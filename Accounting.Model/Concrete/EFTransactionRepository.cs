@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Accounting.Model.Concrete
 {
-    public class EFTransactionRepository: ITransactionRepository
+    public class EFTransactionRepository : ITransactionRepository
     {
         private EFDbContext context = new EFDbContext();
 
@@ -46,11 +46,11 @@ namespace Accounting.Model.Concrete
         public void SaveTransactionDetail(List<TransactionAccountDetail> transactionAccountDetails, int transactionSummaryId)
         {
             var existingDetail = context.TransactionAccountDetails.Where(x => x.TransactionSummaryId == transactionSummaryId);
-            foreach(var e in existingDetail)
+            foreach (var e in existingDetail)
             {
                 context.TransactionAccountDetails.Remove(e);
             }
-            foreach(var t in transactionAccountDetails)
+            foreach (var t in transactionAccountDetails)
             {
                 t.TransactionSummaryId = transactionSummaryId;
                 t.TransactionAccountDetailId = 0;
@@ -66,7 +66,7 @@ namespace Accounting.Model.Concrete
                 context.TransactionSummaries.Add(transactionSummary);
             }
             var dbEntry = context.TransactionSummaries.Find(transactionSummary.TransactionSummaryId);
-            if(dbEntry != null)
+            if (dbEntry != null)
             {
                 dbEntry.TransactionDate = transactionSummary.TransactionDate;
                 dbEntry.TransactionNarration = transactionSummary.TransactionNarration;
@@ -78,6 +78,24 @@ namespace Accounting.Model.Concrete
         public int[] GetTransactionsIdsForLedgerAccount(int[] ledgerAccountIds)
         {
             return context.TransactionAccountDetails.Where(x => ledgerAccountIds.Contains(x.LedgerAccountId)).Select(x => x.TransactionSummaryId).ToArray();
+        }
+
+        public Dictionary<int, double> GetOpeningBalance(string asOfDate)
+        {
+            return (from s in context.TransactionSummaries.Where(x => x.TransactionDate.CompareTo(asOfDate) < 0)
+                    join a in context.TransactionAccountDetails
+                    on s.TransactionSummaryId equals a.TransactionSummaryId
+                    group new { Amount = a.Amount, TransactionSide = a.TransactionSide } by a.LedgerAccountId into g
+                    select g).ToDictionary(x => x.Key, x => x.Sum(y => y.Amount * (y.TransactionSide == TransactionSide.Credit ? 1 : -1)));
+        }
+
+        public Dictionary<int, double> GetNetBalance(string startDate, string endDate)
+        {
+            return (from s in context.TransactionSummaries.Where(x => x.TransactionDate.CompareTo(startDate) >= 0 && x.TransactionDate.CompareTo(endDate) <= 0)
+                    join a in context.TransactionAccountDetails
+                    on s.TransactionSummaryId equals a.TransactionSummaryId
+                    group new { Amount = a.Amount, TransactionSide = a.TransactionSide } by a.LedgerAccountId into g
+                    select g).ToDictionary(x => x.Key, x => x.Sum(y => y.Amount * (y.TransactionSide == TransactionSide.Credit ? 1 : -1)));
         }
     }
 }

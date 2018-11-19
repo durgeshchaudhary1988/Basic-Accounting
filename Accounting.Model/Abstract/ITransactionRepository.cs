@@ -20,6 +20,8 @@ namespace Accounting.Model.Abstract
         List<TransactionSummary> GetTransactionSummaryForTransactionIds(IEnumerable<int> transactionIds);
         List<TransactionAccountDetail> GetTransactionAccountDetailForTransactionIds(IEnumerable<int> transactionIds);
         int[] GetTransactionsIdsForLedgerAccount(int[] ledgerAccountIds);
+        Dictionary<int, double> GetOpeningBalance(string asOfDate);
+        Dictionary<int, double> GetNetBalance(string startDate, string endDate);
         #endregion
     }
 }
