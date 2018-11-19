@@ -2,7 +2,18 @@
 @if ((string)ViewData["Balance"] == "Debit") { Model.CreditAmount *= -1; }
 @if (Model.EntryType == ReportViewModel.ReportEntryType.Head || Model.CreditAmount != 0)
 {
-    <td>@Model.Name</td>
+    if (Model.EntryType == ReportViewModel.ReportEntryType.Account)
+    {
+        <td>@Html.ActionLink(Model.Name, "ListLedgerAccount", "Transaction", new { ledgerAccountId = Model.Id }, null)</td>
+    }
+    else if (Model.Id > 0)
+    {
+        <td>@Html.ActionLink(Model.Name, "ListLedgerHead", "Transaction", new { ledgerHeadId = Model.Id }, null)</td>
+    }
+    else
+    {
+        <td>@Html.ActionLink(Model.Name, "PnL", "Report", null, null)</td>
+    }
     <td class="text-right @(Model.CreditAmount<0?"danger":"")">@(Model.CreditAmount.ToString("C"))</td>
 }
 @{
