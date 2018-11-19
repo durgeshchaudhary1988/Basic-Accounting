@@ -1,0 +1,27 @@
+﻿@model List<ReportViewModel.ReportEntry>
+
+@{
+    double ClosingBalance = 0;
+}
+<table class="table table-condensed table-bordered">
+    <tr>
+        <th colspan="2" class="text-center btn-info text-bold"><h4>@ViewData["Header"]</h4></th>
+    </tr>
+    <tr>
+        <th></th>
+        <th class="text-right">@ViewData["Balance"]</th>
+    </tr>
+
+    @foreach (var account in Model)
+    {
+        ClosingBalance += account.CreditAmount;
+        <tr class="success EntryType@(account.EntryType == ReportViewModel.ReportEntryType.Head ? "Head" : "Account")">
+            @Html.Partial("ReportEntry", account, ViewData)
+        </tr>
+    }
+
+    <tr class="text-primary">
+        <th class="text-right text-primary">Closing Balance</th>
+        <th class="text-right">@( (ClosingBalance * ((string)ViewData["Balance"] == "Debit" ? -1 : 1)).ToString("C") )</th>
+    </tr>
+</table>

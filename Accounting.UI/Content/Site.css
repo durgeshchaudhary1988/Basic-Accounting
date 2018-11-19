@@ -25,3 +25,7 @@ select {
 .credit_debit_Credit .credit_debit_text {
     float: right;
 }
+
+.EntryTypeHead, .text-bold {
+    font-weight: bold;
+}

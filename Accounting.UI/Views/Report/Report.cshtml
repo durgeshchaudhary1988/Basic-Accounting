@@ -1,0 +1,29 @@
+﻿@model ReportViewModel
+
+@{
+    ViewBag.Title = Model.ReportName;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="text-center">@Model.ReportName</h3>
+        <h4 class="text-center"><b>@Model.StartDate.ToDisplayDate()</b> - <b>@Model.EndDate.ToDisplayDate()</b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12 text-right">
+                <div class="btn-group">
+                    <input id="btnDetailView" type="button" class="btn btn-xs btn-primary" value="Detail" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                @Html.Partial("ReportTable", Model.LeftEntries, new ViewDataDictionary { { "Header", Model.LeftHeader }, { "Balance", Model.LeftBalance } })
+            </div>
+            <div class="col-lg-6">
+                @Html.Partial("ReportTable", Model.RightEntries, new ViewDataDictionary { { "Header", Model.RightHeader }, { "Balance", Model.RightBalance } })
+            </div>
+        </div>
+    </div>
+</div>

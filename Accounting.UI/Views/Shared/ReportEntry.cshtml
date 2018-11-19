@@ -1,0 +1,20 @@
+﻿@model ReportViewModel.ReportEntry
+@if ((string)ViewData["Balance"] == "Debit") { Model.CreditAmount *= -1; }
+@if (Model.EntryType == ReportViewModel.ReportEntryType.Head || Model.CreditAmount != 0)
+{
+    <td>@Model.Name</td>
+    <td class="text-right @(Model.CreditAmount<0?"danger":"")">@(Model.CreditAmount.ToString("C"))</td>
+}
+@{
+    if (Model.SubEntry != null && Model.SubEntry.Count > 0)
+    {
+        foreach (var entry in Model.SubEntry.OrderBy(x => x.Name))
+        {
+            <tr class="childEntry EntryType@(entry.EntryType == ReportViewModel.ReportEntryType.Head ? "Head" : "Account")">
+                @{
+                    Html.RenderPartial("ReportEntry", entry);
+                }
+            </tr>
+        }
+    }
+}
