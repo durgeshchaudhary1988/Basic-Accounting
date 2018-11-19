@@ -1,4 +1,8 @@
-﻿@Html.ActionLink("Ledger Types", "Index","LedgerType", null, new { @class = "btn btn-sm btn-default " })
-@Html.ActionLink("Ledger Heads", "Index","LedgerHead", null, new { @class = "btn btn-sm btn-default " })
+﻿@Html.ActionLink("Ledger Types", "Index", "LedgerType", null, new { @class = "btn btn-sm btn-default " })
+@Html.ActionLink("Ledger Heads", "Index", "LedgerHead", null, new { @class = "btn btn-sm btn-default " })
 @Html.ActionLink("Ledger Accounts", "Index", "LedgerAccount", null, new { @class = "btn btn-sm btn-default " })
+
+@Html.ActionLink("Balance Sheet", "BalanceSheet", "Report", null, new { @class = "btn btn-sm btn-primary " })
+@Html.ActionLink("PnL", "PnL", "Report", null, new { @class = "btn btn-sm btn-primary " })
+
 @Html.ActionLink("Transaction", "Create", "Transaction", null, new { @class = "btn btn-sm btn-success " })

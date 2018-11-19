@@ -34,7 +34,7 @@
                 <tr>
                     <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-center">
                         @item.TransactionDate.ToDisplayDate()
-                        @Html.ActionLink(" ", "ViewTransactionReport", "Transaction", new { transactionId = item.TransactionSummaryId }, new {@class = "glyphicon glyphicon-link" })
+                        @Html.ActionLink(" ", "ViewTransactionReport", "Transaction", new { transactionId = item.TransactionSummaryId }, new { @class = "glyphicon glyphicon-link" })
                     </td>
                     <td colspan="3">@item.TransactionNarration</td>
                     <td rowspan="@(item.TransactionAccounts.Count+1)" class="text-right">@(item.CreditAmount > 0 ? item.CreditAmount.ToString("C") : "")</td>
@@ -64,5 +64,8 @@
     </div>
     <div class="panel-footer text-right">
         @Html.ActionLink("Transaction", "Create", "Transaction", null, new { @class = "btn btn-sm btn-primary " })
+    </div>
+    <div class="panel-footer text-center">
+        @Html.Partial("FooterLedger")
     </div>
 </div>
