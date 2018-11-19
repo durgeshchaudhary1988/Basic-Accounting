@@ -35,6 +35,13 @@
                             <li>@Html.ActionLink("Ledger Account : Create New", "Create", "LedgerAccount")</li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Balance Sheet", "BalanceSheet", "Report")</li>
+                            <li>@Html.ActionLink("Profit n Loss", "PnL", "Report")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Transaction", "Create", "Transaction")</li>
                 </ul>
             </div>
@@ -47,7 +54,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
