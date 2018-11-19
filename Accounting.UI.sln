@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounting.Svc", "Accountin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounting.Model", "Accounting.Model\Accounting.Model.csproj", "{08389D13-8330-46A3-95AA-F23D412BB479}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounting.DemoData", "Accounting.DemoData\Accounting.DemoData.csproj", "{6CADF5A4-871E-40E1-AD63-AAD597167C91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{08389D13-8330-46A3-95AA-F23D412BB479}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08389D13-8330-46A3-95AA-F23D412BB479}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08389D13-8330-46A3-95AA-F23D412BB479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CADF5A4-871E-40E1-AD63-AAD597167C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CADF5A4-871E-40E1-AD63-AAD597167C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CADF5A4-871E-40E1-AD63-AAD597167C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CADF5A4-871E-40E1-AD63-AAD597167C91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
